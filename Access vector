@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define un(ve)                 ve.resize(unique(ve.begin(),ve.end())-ve.begin())
+using namespace std;
+void fast()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(nullptr), cout.tie(nullptr);
+}
+bool comp(pair<pair<string, ll>, pair<pair<int, int>, pair<int, int>>>A, pair<pair<string, ll>, pair<pair<int, int>, pair<int, int>>>B)
+{
+	if (abs(A.first.second - B.first.second) > 10)
+	{
+		return A.first.second > B.first.second;
+	}
+	else
+	{
+		return A.first.first < B.first.first;
+	}
+}
+void solve()
+{
+	int N; cin >> N;
+	vector<pair<pair<string, ll>, pair<pair<int, int>, pair<int, int>>>>ve(N);
+	for (int i = 0; i < N; i++)
+	{
+		cin >> ve[i].first.first >> ve[i].second.first.first >> ve[i].second.first.second >> ve[i].second.second.first >> ve[i].second.second.second;
+		ve[i].first.second = ve[i].second.first.first + ve[i].second.first.second + ve[i].second.second.first + ve[i].second.second.second;
+	}
+	sort(ve.begin(), ve.end(), comp);
+	for (int i = 0; i < N; i++)
+	{
+		cout << ve[i].first.first << " " << ve[i].first.second << " " << ve[i].second.first.first << " " << ve[i].second.first.second << " " << ve[i].second.second.first << " " << ve[i].second.second.second << "\n";
+	}
+}
+int main()
+{
+	fast();
+	int T = 1; //cin >> T;
+	while (T--)
+	{
+		solve();
+	}
+}
