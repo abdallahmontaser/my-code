@@ -1,3 +1,8 @@
+void fast()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(nullptr), cout.tie(nullptr);
+}
 void printBinary(int num) 
 {
 	if (num <= 1)
@@ -7,6 +12,29 @@ void printBinary(int num)
 	}
 	printBinary(num >> 1);
 	cout << (num & 1);
+}
+void cheakPowerOfTwo(int num)
+{
+	if (num > 0 && (num & (num - 1)) == 0)
+		cout << "is power of two\n";
+	else
+		cout << "not power of two\n";
+}
+int changeFirstBitEqual_0(int num)
+{
+	return  num | (num + 1);
+}
+int changeFirstBitEqual_1(int num)
+{
+	return num & (num - 1);
+}
+int setAllBitUntilFirstBitEqualTo_1(int num)
+{
+	return num | (num - 1);
+}
+int setAllBitUntilFirstBitEqualTo_0(int num)
+{
+	return num & (num + 1);
 }
 int countBits1(int num)	
 {
@@ -37,4 +65,8 @@ int flibBit(int num, int idx)
 int lastBitValue(int num)
 {
 	return num & ~(num - 1);
+}
+int lastBit1(int num)
+{
+	return log2(num & ~(num - 1));
 }
