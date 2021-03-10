@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+int getBit(int num, int idx)
+{
+	return (num >> idx) & 1;
+}
+int setBit1(int num, int idx)
+{
+	return  num | (1 << idx);
+}
+const int N = 1e5;
+char vis[N / 8 + 1];
+vector<int>All_Prime;
+void sieve()
+{
+	vis[0 >> 3] = setBit1(vis[0 >> 3], 0 & 7);
+	vis[1 >> 3] = setBit1(vis[1 >> 3], 1 & 7);
+	for (int i = 2; i * i <= N; i++)
+	{
+		if (getBit(vis[i >> 3], i & 7) == 0)
+		{
+			for (int j = i * 2; j <= N; j += i)
+				vis[j >> 3]= setBit1(vis[j >> 3], j & 7);
+		}
+	}
+	for (int i = 0; i <= N; i++)
+	{
+		if (getBit(vis[i >> 3], i & 7) == 0)
+			All_Prime.push_back(i);
+	}
+}
+int main()
+{
+	sieve();
+	sort(All_Prime.begin(), All_Prime.end());
+	for (int i = 0; i < All_Prime.size(); i++)
+		cout << All_Prime[i] << " ";
+}
