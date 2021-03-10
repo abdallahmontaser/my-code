@@ -1,0 +1,32 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<cmath>
+using namespace std;
+const int N = 1e5;
+vector<bool>prime(1e5 + 1, true);
+vector<int>All_Prime;
+void sieve()
+{
+	prime[0] = prime[1] = 0;
+	for (int i = 2; i * i <= N; i++)
+	{
+		if (prime[i])
+		{
+			for (int j = i * 2; j <= N; j += i)
+				prime[j] = false;
+		}
+	}
+	for (int i = 0; i <= N; i++)
+	{
+		if (prime[i])
+			All_Prime.push_back(i);
+	}
+}
+int main()
+{
+	sieve();
+	sort(All_Prime.begin(), All_Prime.end());
+	for (int i = 0; i < All_Prime.size(); i++)
+		cout << All_Prime[i] << " ";
+}
