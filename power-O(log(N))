@@ -1,10 +1,21 @@
-int power(int a, int b)
+ll power(ll a, ll b)
 {
 	if (b == 0)
 		return 1;
-	int sq = power(a, b / 2);
+	ll sq = power(a, b / 2);
 	sq = sq * sq;
 	if (b % 2 == 1)
 		sq = sq * a;
 	return sq;
+}
+ll fast_pow_Mod(ll N, ll M)
+{
+	if (M == 0)
+		return 1;
+	ll sq = fast_pow(N, M / 2);
+	sq = ((sq % Mod) * (sq % Mod)) % Mod;
+	sq %= Mod;
+	if (M % 2)
+		sq = ((sq % Mod) * (N % Mod)) % Mod;
+	return (sq % Mod);
 }
