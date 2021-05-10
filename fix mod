@@ -1,0 +1,4 @@
+int fix(int a)
+{
+	return (a % K + K) % K;
+}
