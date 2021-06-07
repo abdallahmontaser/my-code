@@ -1,0 +1,9 @@
+int isPalindrome(int i, int j)
+{
+    if (i >= j)
+        return 1;
+	int& ret = dp[i][j];
+    if (~ret)
+        return ret;
+	return ret = ((isPalindrome(i + 1, j - 1)) && (S[i] == S[j]));
+}
