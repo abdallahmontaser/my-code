@@ -1,0 +1,75 @@
+vector<int>BFS(int S, vector<vector<int>>& adjList)
+{
+	vector<int>len(adjList.size(), 1e7);
+	queue<pair<int, int>>q;
+	q.push({ S,0 }), len[S] = 0;
+	int cur, dep;
+	while (!q.empty())
+	{
+		pair<int, int>p = q.front();
+		q.pop();
+		cur = p.first, dep = p.second;
+		for (int i = 0; i < adjList[cur].size(); i++)
+		{
+			if (len[adjList[cur][i]] == 1e7)
+				q.push({ adjList[cur][i] ,dep + 1 }), len[adjList[cur][i]] = dep + 1;
+		}
+	}
+	return len;
+}
+vector<int>BFS2(int S, vector<vector<int>>& adjList)
+{
+	vector<int>len(adjList.size(), 1e7);
+	queue<int>q;
+	q.push(S), len[S] = 0;
+	int cur = S, dep = 0, sz = 1;
+	for (; !q.empty(); dep++, sz = q.size())
+	{
+		while (sz--)
+		{
+			cur =q.front();
+			q.pop();
+			for (int i = 0; i < adjList[cur].size(); i++)
+			{
+				if (len[adjList[cur][i]] == 1e7)
+					q.push(adjList[cur][i]), len[adjList[cur][i]] = dep + 1;
+			}
+		}
+	}
+	return len;
+}
+vector<int>BFSPath(int S, int d, vector<vector<int>>& adjList)
+{
+	vector<int>len(adjList.size(), 1e7);
+	vector<int>par(adjList.size(), -1);
+	queue<int>q;
+	q.push(S), len[S] = 0;
+	int cur = S, dep = 0, sz = 1;
+	bool ok = true;
+	for (; ok && !q.empty(); dep++, sz = q.size())
+	{
+		while (ok && sz--)
+		{
+			cur = q.front();
+			q.pop();
+			for (int i = 0; i < adjList[cur].size(); i++)
+			{
+				if (len[adjList[cur][i]] == 1e7)
+					q.push(adjList[cur][i]), len[adjList[cur][i]] = dep + 1, par[adjList[cur][i]] = cur;
+				if (adjList[cur][i] == d)
+				{
+					ok = false;
+					break;
+				}
+			}
+		}
+	}
+	vector<int>path;
+	while (d != -1)
+	{
+		path.push_back(d);
+		d = par[d];
+	}
+	reverse(all(path));
+	return path;
+}
