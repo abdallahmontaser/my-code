@@ -1,14 +1,27 @@
-int dikstra(int from, int to)
+struct node
 {
+	int cost, cur;
+	bool operator<(const node& e)const
+	{
+		if (cost != e.cost)
+			return cost > e.cost;
+		else
+			return cur > e.cur;
+	}
+};
+void dijkstra()
+{
+	int N, M, u, v, cost, cur_node, cur_cost, d; cin >> N >> M;
+	d = N - 1;
+	vector<vector<pair<int, int>>>adj(N);
 	vi len(N, -1);
-	int cur_node, cur_cost;
+	for (int i = 0; i < M; i++)
+		cin >> u >> v >> cost, u--, v--, adj[u].push_back({ v,cost }), adj[v].push_back({ u,cost });
 	priority_queue<node>qe;
-	qe.push({ 0,from });
+	qe.push({ 0,0 });
 	while (!qe.empty())
 	{
 		cur_node = qe.top().cur, cur_cost = qe.top().cost, qe.pop();
-		if (cur_node == to)
-			return cur_cost;
 		if (~len[cur_node])
 			continue;
 		len[cur_node] = cur_cost;
