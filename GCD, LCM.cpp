@@ -17,7 +17,7 @@ ll gcd(ll a, ll b)
 }
 ll lcm(ll a, ll b)
 {
-	return ((a * b) / gcd(a, b));
+	return (b / gcd(a, b))*a;
 }
 int gcd(int a, int b)
 {
