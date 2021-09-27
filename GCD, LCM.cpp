@@ -8,12 +8,16 @@ void fast()
 	ios_base::sync_with_stdio(false);
 	cin.tie(nullptr), cout.tie(nullptr);
 }
-int gcd_recursion(int a, int b)
+ll gcd(ll a, ll b)
 {
 	if (b == 0)
 		return a;
 	else
-		return gcd_recursion(b, a % b);
+		return gcd(b, a % b);
+}
+ll lcm(ll a, ll b)
+{
+	return ((a * b) / gcd(a, b));
 }
 int gcd(int a, int b)
 {
