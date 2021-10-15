@@ -60,20 +60,13 @@ struct DSU
 	}
 	void MergeGroups(int u, int v)
 	{
-		int leader1 = FindLeader(u);
-		int leader2 = FindLeader(v);
+		int leader1 = FindLeader(u), leader2 = FindLeader(v);
 		if (leader1 == leader2)
 			return;
-		if (GroupSize[leader1] > GroupSize[leader2])
-		{
-			parent[leader2] = leader1;
-			GroupSize[leader1] += GroupSize[leader2];
-		}
-		else
-		{
-			parent[leader1] = leader2;
-			GroupSize[leader2] += GroupSize[leader1];
-		}
+		if (GroupSize[leader1] < GroupSize[leader2])
+			swap(leader1, leader2);
+		parent[leader2] = leader1;
+		GroupSize[leader1] += GroupSize[leader2];
 	}
 	int GetSize(int node)
 	{
