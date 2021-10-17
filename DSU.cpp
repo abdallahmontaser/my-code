@@ -35,13 +35,16 @@ struct DSU
 	}
 }DSU;
 ***********************************************************************************************************************************************************
-const int MAXNODE = 100009;
+const int MAXNODE = 1e3 + 5;
+int N, M, Q, X;
 struct DSU
 {
 	int parent[MAXNODE];
 	int GroupSize[MAXNODE];
+	int component;
 	DSU()
 	{
+		component = N;
 		for (int i = 0; i < MAXNODE; i++)
 		{
 			parent[i] = i;
@@ -67,10 +70,15 @@ struct DSU
 			swap(leader1, leader2);
 		parent[leader2] = leader1;
 		GroupSize[leader1] += GroupSize[leader2];
+		component--;
 	}
 	int GetSize(int node)
 	{
 		return GroupSize[FindLeader(node)];
+	}
+	int GetComponent()
+	{
+		return component;
 	}
 };
 
