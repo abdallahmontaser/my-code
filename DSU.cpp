@@ -107,7 +107,7 @@ struct DSU
 	}
 	void Paint()
 	{
-		//if i have array & query and want to paint segment of array [L,R] with color C int O(log(N)) 
+		//if i have array & query and want to paint segment of array [L,R] with color C in O(log(N)) 
 		for (int i = Q - 1; i >= 0; i--)
 		{
 			int l = query[i].l;
