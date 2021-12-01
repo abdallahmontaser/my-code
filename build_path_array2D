@@ -1,0 +1,17 @@
+string ans="";
+char get(pair<int, int>A, pair<int, int>B)
+{
+	if (A.first == B.first)
+		return((A.second > B.second) ? 'R' : 'L');
+	else
+		return((A.first > B.first) ? 'D' : 'U');
+}
+void Build(int x, int y)
+{
+	pair<int, int> d = { x,y };
+	while (par[d.first][d.second] != make_pair(-1, -1))
+	{
+		ans += get(d, { par[d.first][d.second].first,par[d.first][d.second].second });
+		d = par[d.first][d.second];
+	}
+}
