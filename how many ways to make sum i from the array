@@ -1,0 +1,19 @@
+void get_sum()
+{
+	ll dp[15001] = { 0 };
+	dp[0] = 1;
+	int N; cin >> N;
+	vi ve(N);
+	for (auto& it : ve) cin >> it;
+	sort(all(ve));
+	for (int i = 0; i < N; i++)
+	{
+		for (int s = 15000; s >= 0; s--) 
+		{
+			if (s - ve[i] >= 0) {
+				dp[s] += dp[s - ve[i]];
+				dp[s] %= Mod;
+			}
+		}
+	}
+}
