@@ -1,0 +1,16 @@
+int N, u, v;
+vi parent;
+vector<vi>adj1, adj2, ve;
+ll dp[(int)1e5 + 1][2];
+void dfs(int node, int par)
+{
+	for (auto child : adj1[node])
+	{
+		if (child != par)
+		{
+			adj2[node].push_back(child);
+			parent[child] = node;
+			dfs(child, node);
+		}
+	}
+}
