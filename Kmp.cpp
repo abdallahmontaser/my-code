@@ -32,12 +32,12 @@ void computeF() {
 int  match() {
     computeF();
     int l = 0;
-    int cnt = 0;
+    vector<int>res;
     for (int i = 0; str[i]; i++) {
         l = newL(l, str[i]);
-        if (!pat[l]) cnt++;
+        if (!pat[l]) res.push_back(i - l + 1);
     }
-    return cnt;
+    return (int)res.size();
 }
 
 int main() {
