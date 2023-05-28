@@ -8,15 +8,15 @@ ll gcd(ll a, ll b) { return ((b == 0) ? a : gcd(b, a % b)); }
 ll lcm(ll a, ll b) { return (b / gcd(a, b)) * a; }
 
 void Candidate_Elde7k() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(nullptr), cout.tie(nullptr);
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr), cout.tie(nullptr);
 }
 
 const int N = 2e5 + 9;
 const int SIZE = 1e6 + 9;
 ll ans = 0;
 int arr[N], freq[SIZE];
-int block_size;
+int BLOCK_SIZE;
 
 void remove(int val) {
     ans -= ((freq[val] * 1ll * freq[val]) * 1ll * val);
@@ -34,21 +34,23 @@ ll get_answer() {
 
 struct Query {
     int l, r, idx;
-    bool operator<(Query other) const
-    {
-        return make_pair(l / block_size, r) <
-            make_pair(other.l / block_size, other.r);
-    }
+
 };
+bool comp(Query &p, Query &q) {
+    if (p.l / BLOCK_SIZE != q.l / BLOCK_SIZE) {
+        return (p.l != q.l) ? p.l < q.l : p.r < q.r;
+    }
+    return (p.l / BLOCK_SIZE & 1) ? (p.r < q.r) : (p.r > q.r);
+}
 
 int main() {
-	Candidate_Elde7k();
+    Candidate_Elde7k();
 
     int n, q; cin >> n >> q;
     vector<Query> queries(q);
-    block_size = (int)sqrt(n + .0) + 1;
+    BLOCK_SIZE = (int)sqrt(n + .0) + 1;
     vector<ll> answers(q);
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         cin >> arr[i];
     }
     for (int i = 0; i < q; i++) {
@@ -57,7 +59,7 @@ int main() {
         queries[i].r--;
         queries[i].idx = i;
     }
-    sort(queries.begin(), queries.end());
+    sort(queries.begin(), queries.end(), comp);
     int cur_l = 0;
     int cur_r = -1;
     for (Query q : queries) {
@@ -80,5 +82,4 @@ int main() {
         answers[q.idx] = get_answer();
     }
     for (auto& it : answers)cout << it << "\n";
-    
 }
