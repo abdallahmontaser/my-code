@@ -33,15 +33,13 @@ ll get_answer() {
 }
 
 struct Query {
-    int l, r, idx;
-
-};
-bool comp(Query &p, Query &q) {
-    if (p.l / BLOCK_SIZE != q.l / BLOCK_SIZE) {
-        return (p.l != q.l) ? p.l < q.l : p.r < q.r;
+    int l, r, k, idx;
+    bool operator < (Query other) {
+        if (l / BLOCK_SIZE != other.l / BLOCK_SIZE) return l < other.l;
+        return l / BLOCK_SIZE % 2 ? r > other.r : r < other.r;
     }
-    return (p.l / BLOCK_SIZE & 1) ? (p.r < q.r) : (p.r > q.r);
-}
+};
+
 
 int main() {
     Candidate_Elde7k();
@@ -59,7 +57,7 @@ int main() {
         queries[i].r--;
         queries[i].idx = i;
     }
-    sort(queries.begin(), queries.end(), comp);
+    sort(queries.begin(), queries.end());
     int cur_l = 0;
     int cur_r = -1;
     for (Query q : queries) {
